@@ -1,0 +1,26 @@
+[
+{"namespace": "com.masmovil.avro",
+  "type": "record",
+  "name": "UserAvro",
+  "fields": [
+      {"name": "id", "type": "long"},
+      {"name": "name",  "type": "string"},
+      {"name": "screenName",  "type": "string"},
+      {"name": "location",  "type": ["string", "null"]},
+      {"name": "followersAmount",  "type": "long"}
+  ]
+},
+{"namespace": "com.masmovil.avro",
+  "type": "record",
+  "name": "TweetAvro",
+  "fields": [
+      {"name": "id", "type": "string"},
+      {"name": "country",  "type": ["string", "null"]},
+      {"name": "msg",  "type": "string"},
+      {"name": "retweet",  "type": "boolean"},
+      {"name": "lang",  "type": "string"},
+      {"name": "favoriteCount",  "type": "long"},
+      {"name": "user",  "type": "UserAvro"}
+  ]
+}
+]

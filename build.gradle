@@ -2,7 +2,7 @@ plugins {
     id "com.commercehub.gradle.plugin.avro" version "0.9.0"
 }
 
-group 'com.pjgg'
+group 'org.github.pjgg'
 version '1.0-SNAPSHOT'
 apply plugin: 'java'
 
@@ -10,6 +10,7 @@ sourceCompatibility = 1.8
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "org.twitter4j:twitter4j-stream:4.0.7"
     compile "org.apache.avro:avro:1.8.1"
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'org.apache.kafka:kafka-clients:2.3.0'

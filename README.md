@@ -108,7 +108,7 @@ select * from IMPRESSIONS where USERID = 'user_71';
 ```
 docker exec ksql-datagen ksql-datagen bootstrap-server=broker:29092 \
                           schema=/tmp/person.avcs \
-                          format=delimeted \
+                          format=avro \
                           topic=users_topic \
                           maxInterval=10 \
                           iterations=100 key=id
@@ -118,6 +118,43 @@ Then you can create a stream for this topic (through control center)
 
 *Query*: CREATE STREAM person (viewtime BIGINT, key VARCHAR, userid VARCHAR, adid VARCHAR) WITH (KAFKA_TOPIC='impressions', VALUE_FORMAT='DELIMITED');
 
+CREATE STREAM person (id VARCHAR, country VARCHAR, msg VARCHAR) WITH (KAFKA_TOPIC='impressions', VALUE_FORMAT='JSON');
+
+# Twitter example
+
+Firstly setup your [twitter credential!](https://github.com/pjgg/ksql-poc/blob/master/src/main/java/org/pjgg/twitter/stream/Connectors.java).
+
+<img align="center" src="https://github.com/pjgg/ksql-poc/blob/master/ksql-poc.png">
 
 
+* Create a stream in order to ingest tweets msg and lang.
 
+```
+CREATE STREAM tweets (country VARCHAR, msg VARCHAR,lang VARCHAR)  WITH (
+                             KAFKA_TOPIC='tweets',
+                             VALUE_FORMAT='AVRO');
+```
+
+* Create a stream in order to ingest tweets msg and lang and embebed user details.
+
+```
+CREATE STREAM tweets_embebed (
+                           country VARCHAR,
+                           msg VARCHAR,
+                           lang VARCHAR,
+                           user STRUCT<name VARCHAR,screenName VARCHAR, location VARCHAR, followersAmount BIGINT>)  WITH (
+                             KAFKA_TOPIC='tweets',
+                             VALUE_FORMAT='AVRO');
+```
+
+* Create an stream from a stream in order to make tweets structure plain.
+
+```
+CREATE STREAM tweets_plain WITH (VALUE_FORMAT='JSON') AS SELECT msg, lang, country, user->name AS user_name, user->screenName AS user_screen_name,user->location AS user_location, user->followersAmount AS user_followers_amount FROM tweets_embebed;
+```
+
+* Make a query over the new structure
+
+```
+select * from TWEETS_PLAIN where len(user_name) > 3;
+```

@@ -127,6 +127,15 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 .idea/vcs.xml
+.idea/compiler.xml
+.idea/modules/org.github.pjgg.ksql-poc.iml
+.idea/modules/org.github.pjgg.ksql-poc.main.iml
+.idea/modules/org.github.pjgg.ksql-poc.test.iml
+.idea/modules/org.gith
+ub.pjgg.ksql-poc.test.iml
+twitterCredential.txt
+.idea/
+.DS_Store
 
 
 # End of https://www.gitignore.io/api/java,gradle,intellij
