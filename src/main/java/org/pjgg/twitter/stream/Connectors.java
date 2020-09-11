@@ -3,6 +3,8 @@ package org.pjgg.twitter.stream;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import java.util.Properties;
+
+import org.apache.avro.Schema;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -22,11 +24,11 @@ public enum Connectors {
 
 	Connectors() {
 		twitter4j.conf.Configuration twitter_conf = new ConfigurationBuilder()
-			.setOAuthConsumerKey("YOUR_CONSUMER_KEY")
-			.setOAuthConsumerSecret("YOUR_CONSUMER_SECRET")
-			.setOAuthAccessToken("OAUTH_ACCESS_TOKEN")
-			.setOAuthAccessTokenSecret("OAUTH_ACCESS_TOKEN_SECRET")
-			.build();
+				.setOAuthConsumerKey("YOUR_CONSUMER_KEY")
+				.setOAuthConsumerSecret("YOUR_CONSUMER_SECRET")
+				.setOAuthAccessToken("OAUTH_ACCESS_TOKEN")
+				.setOAuthAccessTokenSecret("OAUTH_ACCESS_TOKEN_SECRET")
+				.build();
 
 		Properties props = new Properties();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
